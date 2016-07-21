@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Anodizing Tank Temperature Sensors</title>
+<!-- Bootstrap core CSS -->
+<link href="../WebLibs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+<!-- Custom styles for this template -->
+<link href="css/starter-template.css" rel="stylesheet">
+    
+<!-- JavaScript Code and libraries -->
+<script src="../WebLibs/jquery/jquery.min.js"></script> 
+<script src="../WebLibs/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/erpc.js"></script>
+<script type="text/javascript" src="js/utilities.js"></script>
+<script type="text/javascript" src="js/tempsensor.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a class="navbar-brand" href="#">Anodizing Tank Temperature Sensors</a> </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Home</a></li>
+        <li><a href="configureTanks.html">Configure</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
+    <!--/.nav-collapse --> 
+  </div>
+</nav>
+<!-- Start Container -->
+<div class="container">
+  <div class="page-header">
+    <h1>Anodizing Tanks</h1>
+    <span class="error text-danger"></span> <span class="memory"></span> </div>
+  <!-- 1st Row -->
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-default SoakClean">
+        <div class="panel-heading">
+          <h3 style="float:left;" class="panel-title"><span class="tankName">----</span> Tank </h3>
+          <input style="float:right;" type="button" class="timer btn-primary" id="btnSoakTimer" value="Start" >
+        </div>
+        <div class="panel-body">
+          <div style="height:50px;">
+            <div class="temp" style="width:100px; float:left;"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="max-min" style="width:100px; float:right; text-align:center;">Min / Max<br />
+              <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
+          </div>
+          <div><span class="setTemp">Set Temperature: <span class="tankSetTemp"></span><span class="setTempFC">&deg;<span class="tankTempFC"></span></span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default Cleaner740">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="tankName">----</span> Tank</h3>
+        </div>
+        <div class="panel-body">
+          <div style="height:50px;">
+            <div class="temp" style="width:100px; float:left;"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="max-min" style="width:100px; float:right; text-align:center;">Min / Max<br />
+              <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
+          </div>
+          <div><span class="setTemp">Set Temperature: <span class="tankSetTemp"></span><span class="setTempFC">&deg;<span class="tankTempFC"></span></span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default Etch">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="tankName">----</span> Tank</h3>
+        </div>
+        <div class="panel-body">
+          <div style="height:50px;">
+            <div class="temp" style="width:100px; float:left;"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="max-min" style="width:100px; float:right; text-align:center;">Min / Max<br />
+              <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
+          </div>
+          <div><span class="setTemp">Set Temperature: <span class="tankSetTemp"></span><span class="setTempFC">&deg;<span class="tankTempFC"></span></span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /. row --> 
+  <!-- 2nd Row -->
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-default Chill">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="tankName">----</span> Tank</h3>
+        </div>
+        <div class="panel-body">
+          <div style="height:50px;">
+            <div class="temp" style="width:100px; float:left;"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="max-min" style="width:100px; float:right; text-align:center;">Min / Max<br />
+              <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
+          </div>
+          <div><span class="setTemp">Set Temperature: <span class="tankSetTemp"></span><span class="setTempFC">&deg;<span class="tankTempFC"></span></span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default Anodizing">
+        <div class="panel-heading">
+          <h3 style="float:left;" class="panel-title"><span class="tankName">----</span> Tank</h3>
+          <input style="float:right;" type="button" class="timer btn-primary" id="btnAnodizingTimer" value="Start" >
+        </div>
+        <div class="panel-body">
+          <div style="height:50px;">
+            <div class="temp" style="width:100px; float:left;"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="max-min" style="width:100px; float:right; text-align:center;">Min / Max<br />
+              <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
+          </div>
+          <div><span class="setTemp">Set Temperature: <span class="tankSetTemp"></span><span class="setTempFC">&deg;<span class="tankTempFC"></span></span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /. row -->
+  <!-- 3nd Row -->
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-default Dye">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="tankName">----</span> Tank</h3>
+        </div>
+        <div class="panel-body">
+          <div style="height:50px;">
+            <div class="temp" style="width:100px; float:left;"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="max-min" style="width:100px; float:right; text-align:center;">Min / Max<br />
+              <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
+          </div>
+          <div><span class="setTemp">Set Temperature: <span class="tankSetTemp"></span><span class="setTempFC">&deg;<span class="tankTempFC"></span></span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default SealantMTL">
+        <div class="panel-heading">
+          <h3 style="float:left;" class="panel-title"><span class="tankName">----</span> Tank</h3>
+          <input style="float:right;" type="button" class="timer btn-primary" id="btnSealTimer" value="Start" >
+        </div>
+        <div class="panel-body">
+          <div style="height:50px;">
+            <div class="temp" style="width:100px; float:left;"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="max-min" style="width:100px; float:right; text-align:center;">Min / Max<br />
+              <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
+          </div>
+          <div><span class="setTemp">Set Temperature: <span class="tankSetTemp"></span><span class="setTempFC">&deg;<span class="tankTempFC"></span></span></span></div>
+        </div>
+      </div>
+    </div>
+      <!--
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="tankName">----</span> Tank</h3>
+        </div>
+        <div class="panel-body">
+          <div style="height:50px;">
+            <div class="temp" style="width:100px; float:left;"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="max-min" style="width:100px; float:right; text-align:center;">Min / Max<br />
+              <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
+          </div>
+          <div><span class="setTemp">Set Temperature: <span class="tankSetTemp"></span><span class="setTempFC">&deg;<span class="tankTempFC"></span></span></span></div>
+        </div>
+      </div>
+    </div>
+      -->
+  </div>
+  <!-- /. row --> 
+</div>
+<!-- /.container --> 
+
+<!-- Bootstrap core JavaScript
+    ================================================== --> 
+<!-- Placed at the end of the document so the pages load faster --> 
+
+<script language="javascript" type="text/javascript">
+   	$( document ).ready(function() {
+        $(".error").text = "ready";
+   		loadTanks();
+
+        $( ".timer" ).click({ value: this.id}, timerClick );
+        
+	});
+    
+    function timerClick(event){
+        //alert(event.data.value + " - " + this.id);
+        if($("#" + this.id ).val() == "Start"){
+            erpc("StartTimer", this.id);
+
+            $("#" + this.id ).val("Stop");
+            $("#" + this.id ).removeClass("btn-primary");
+            $("#" + this.id ).addClass("btn-danger");
+        }
+        else {
+            erpc("EndTimer", this.id);
+
+            $("#" + this.id ).val("Start");
+            $("#" + this.id ).removeClass("btn-danger");
+            $("#" + this.id ).addClass("btn-primary");
+        }
+	
+}
+    
+    function getTimer(){
+     erpc("ledGet", null, function(status) {
+    ledStatus.innerText = status ? "on" : "off";
+  });   
+    }
+</script>
+</body>
+</html>
