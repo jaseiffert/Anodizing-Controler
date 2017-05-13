@@ -5,8 +5,23 @@ var sensorlist = [];
 var alert;
 var errorCount = 0;
 
-const UpArrow = "&#8593";
-const DnArrow = "&#8595";
+var UP_ARROW = "&#8593";
+var DOWN_ARROW = "&#8595";
+
+// For items that change color like temperature, heaters, up and down arrows.
+var ABOVE_MAX = "#ff0000"; // Red
+var ABOVE_MIN_BELOW_MAX = "#00ff00"; // Green
+var BELOW_MIN = "#ffff00"; // Yellow
+
+var TEMP_UP = "#5fff23"; // Green
+var TEMP_DOWN = "#cc0000"; // Red
+
+var HEATER_ON = "#00ff00"; // Green
+var HEATER_OFF = "#ff0000"; // Red
+
+var RED = "#ff0000"; // Red
+var GREEN = "#00ff00"; // Green
+var WHITE = "#ffffff"; // White
 
 /*
 $('.timer').click(function(){			
@@ -23,6 +38,12 @@ function initControls() {
 	
 }
 
+function getMemory() {
+    erpc("getMem", null, function(result) {
+        $(".memory").text("Total: " + result.size + " Used: " + result.used + " High: " + result.high);
+	});
+}
+
 /* --------------------------------------------
 // Initial loading of tank information
 
@@ -31,6 +52,7 @@ function initControls() {
 
 function loadTanks()
 {
+	heaterOn = false;
     // Call ERPC getTempSensors() to retrieve all of the Sensors
     erpc("GetTanks", null, function (result) {
         if (result) {
@@ -45,7 +67,7 @@ function loadTanks()
                 tankAlarm = 0;
                 tankLastTemp = 0;
                 tempF = false;
-
+				
               
 						
                 $.each( value, function( key, value ) {
@@ -69,13 +91,14 @@ function loadTanks()
                         if(key == "HeaterEnabled") {
                             $("." + tank + " .tank" + key).prop('checked', value);
                             if(value) {
-                            	$("." + tank + " .heaterText").removeClass("red");
-                            	$("." + tank + " .heaterText").addClass("green");  
+                            	//$("." + tank + " .heaterText").css("color", "red");
+                            	$("." + tank + " .heaterText").css("color", "green");
+                                heaterOn = true;
                             }
                             else {
                                 $("." + tank + " .tank" + key).prop('checked', value);
-                                $("." + tank + " .heaterText").removeClass("green");
-                                $("." + tank + " .heaterText").addClass("red");
+                                //$("." + tank + " .heaterText").css("color", "green");
+                                $("." + tank + " .heaterText").css("color", "red");
                             }
                         }
 	                    $("." + tank + " .tank" + key).text(value);
@@ -96,15 +119,14 @@ function loadTanks()
                 // if temperature out of range then color temperature red
                 // up arrow &#8593;
 				// down arrow &#8595;
-                $("." + tank + " div.temp").removeClass("red yellow green");
                     if(tankTemp < tankMin){
-                        $("." + tank + " div.temp").addClass("yellow");
+                        $("." + tank + " .tempText").css("color", BELOW_MIN);
                     }
                     else if(tankTemp > tankMax){
-                        $("." + tank + " div.temp").addClass("red");
+                        $("." + tank + " .tempText").css("color", ABOVE_MAX);
                     }
-                    else if(tankTemp < tankMin && tankTemp > tankMax) {
-                    	$("." + tank + " div.temp").addClass("green");
+                    else if(tankTemp > tankMin && tankTemp < tankMax) {
+                    	$("." + tank + " .tempText").css("color", ABOVE_MIN_BELOW_MAX);
                     }
                 
                 if(tankTemp < tankMin || tankTemp > tankMax){
@@ -117,23 +139,31 @@ function loadTanks()
                 
                 // is temp going up or down
                 if(tankTemp > tankLastTemp){
-                    $("." + tank + " .tankTempUD").html(UpArrow);
-                    $("." + tank + " .tankTempUD").addClass("tempUp");
+                    $("." + tank + " .temp .tankTempUD").html(UP_ARROW);
+                    $("." + tank + " .temp .tankTempUD").css("color", TEMP_UP);
                 }
                 else if(tankTemp < tankLastTemp){
-                    $("." + tank + " .tankTempUD").html(DnArrow);
-                    $("." + tank + " .tankTempUD").addClass("tempDown");
+                    $("." + tank + " .temp .tankTempUD").html(DOWN_ARROW);
+                    $("." + tank + " .temp .tankTempUD").css("color", TEMP_DOWN);
                 }
                 else {
-                    $("." + tank + " .tankTempUD").html("&ndash;");
+                    $("." + tank + " .temp .tankTempUD").html("&ndash;");
                 }
-                    
-                
+
 			}); // $.each( tankList, function( key, value ) {
-           
+            
+           if(heaterOn) {
+               $("#HeaterOnOff").removeAttr('disabled');
+           }
+            else {
+                $("#HeaterOnOff").attr('disabled','disabled')
+            }
+            
            setTimeout(loadTanks, 5000);
            $(".error").text("");
-        }
+            
+        } // if (result)
+        
 	}, function(errorMsg){
 		$(".error").text(errorMsg);
         errorCount ++;
@@ -207,6 +237,7 @@ function getTemps()
 function StartTimer(id){
     erpc("StartTimer", id);
     SetBtnStop(id);
+    setTimeout(getTimer, 3000);
 }
 
 // Ends the timer, sets time to zero

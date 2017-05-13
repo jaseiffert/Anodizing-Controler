@@ -4,6 +4,9 @@ body {
   font-size:12px;
   line-height:14px;
 }
+
+h1 {font-size:24px; font-weight:bold;}
+
 .starter-template {
   padding: 40px 15px;
   text-align: center;
@@ -15,7 +18,7 @@ body {
 
 .tempBox {height:50px;}
 
-.temp {width:140px; float:left;font-size:24px; line-height:26px; color:#5fff23; font-weight:700;}
+.temp {width:140px; float:left;font-size:24px; line-height:26px; font-weight:700;}
 
 .max-min {width:100px; float:right; text-align:center; color:#5fff23; }
 
@@ -24,16 +27,16 @@ body {
 .alarm-enabled {color:#5fff23;}
 .alarm-active {color:#cc0000;}
 
-.red {color:#FF0000;}
-.green {color:#00FF00;}
-.yellow {color:#FFFF00;}
+.red {color:#ff0000;}
+.green {color:#00ff00;}
+.yellow {color:#ffff00;}
 
-.tankSetTemp, .setTempFC {color:#0066FF;}
+.tankSetTemp, .setTempFC {color:cyan;}
 .setTemp {color:#ffffff;}
-
+/*
 .tempUp {color:#5fff23; font-weight:bold; }
 .tempDown {color:#cc0000; font-weight:bold; }
-
+*/
 .text-danger {font-size:16px; font-weight:bold; color:Red;}
 
 .lastTemp {font-size:12px !important;}

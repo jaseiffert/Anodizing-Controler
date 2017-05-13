@@ -14,7 +14,6 @@
 <link href="css/starter-template.css" rel="stylesheet">
 <script type="text/javascript" src="/js/erpc.js"></script>
 <script type="text/javascript" src="js/tempsensor.js"></script>
-
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -35,32 +34,10 @@
 <!-- Start Container -->
 <div class="container">
 	<div class="page-header">
-		<h1>Anodizing Tanks</h1>
+		<h1>Anodizing Controller Configuration</h1>
 	</div>
-	<!-- 1st Row -->
-	<div class="row">
-		<div class="col-sm-3">
-			<div class="panel panel-default Anodizing">
-				<div class="panel-heading">
-                    <h3 class="panel-title"><span class="tankName">----</span> Tank</h3>
-				</div>
-				<div class="panel-body">
-					<div style="height:50px;">
-						<div class="temp" style="width:100px; float:left;"><span class="tankTemp">0</span>&deg;C</div>
-						<div class="max-min" style="width:100px; float:right; text-align:center;">Max / Min<br />
-                            <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span>
-						</div>
-					</div>
-					<div><span class="alarm">Alarm <span class="tankAlarm"></span></span></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /. row --> 
-<form class="form-horizontal">
-<fieldset>
 
-<form class="form-horizontal">
+<form id="ConfigTanks" class="form-horizontal">
 <fieldset>
 
 <!-- Form Name -->
@@ -70,10 +47,8 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="selectbasic">Select Tank</label>
   <div class="col-md-4">
-    <select id="selectbasic" name="selectbasic" class="form-control">
-      <option value="0">Select</option>
-      <option value="1">Option one</option>
-      <option value="2">Option two</option>
+    <select id="ddlTanks" name="ddlTanks" class="form-control">
+      <option value="0">Select Tank</option>
     </select>
   </div>
 </div>
@@ -82,18 +57,34 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="txtTankName">Tank Name</label>  
   <div class="col-md-4">
-  <input id="txtTankName" name="txtTankName" placeholder="" class="form-control input-md" required="" type="text">
-    
+  	<input id="txtTankName" name="txtTankName" placeholder="" class="form-control input-md" required="" type="text">
+    <input id="txtTankId" type="hidden" />
   </div>
 </div>
-
+    
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="txtTankName">Tank Short Name</label>  
+  <div class="col-md-4">
+  <input id="txtTankShortName" name="txtTankName" placeholder="" class="form-control input-md" required="" type="text">
+  </div>
+</div>
+    
 <!-- Select Basic -->
 <div class="form-group">
   <label class="col-md-4 control-label" for="ddlProbe">Probe</label>
   <div class="col-md-4">
     <select id="ddlProbe" name="ddlProbe" class="form-control">
-      <option value="1">Probe One</option>
-      <option value="2">Probe Two</option>
+      <option value="0">Probe 1</option>
+      <option value="1">Probe 2</option>
+      <option value="2">Probe 3</option>
+      <option value="3">Probe 4</option>
+      <option value="4">Probe 5</option>
+      <option value="5">Probe 6</option>
+      <option value="6">Probe 7</option>
+      <option value="7">Probe 8</option>
+      <option value="8">Probe 9</option>
+      <option value="9">Probe 10</option>
     </select>
   </div>
 </div>
@@ -103,13 +94,17 @@
   <label class="col-md-4 control-label" for="rbtnFC">Temperature Values</label>
   <div class="col-md-4"> 
     <label class="radio-inline" for="rbtnFC-0">
-      <input name="rbtnFC" id="rbtnFC-0" value="F" checked="checked" type="radio">
-      °F
-    </label> 
+      <input name="rbtnFC" id="rbtnFC-0" value="F" type="radio">°F</label> 
     <label class="radio-inline" for="rbtnFC-1">
-      <input name="rbtnFC" id="rbtnFC-1" value="C" type="radio">
-      °C
-    </label>
+      <input name="rbtnFC" id="rbtnFC-1" value="C" type="radio">°C</label>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="txtSetTemp">Set Temperature</label>  
+  <div class="col-md-1">
+  <input id="txtSetTemp" name="txtSetTemp" placeholder="" class="form-control input-md" required="" type="text">
   </div>
 </div>
 
@@ -118,7 +113,6 @@
   <label class="col-md-4 control-label" for="txtMinTemp">Miniumum Temperature</label>  
   <div class="col-md-1">
   <input id="txtMinTemp" name="txtMinTemp" placeholder="" class="form-control input-md" required="" type="text">
-    
   </div>
 </div>
 
@@ -127,26 +121,6 @@
   <label class="col-md-4 control-label" for="txtMaxTemp">Maximum Temperature</label>  
   <div class="col-md-1">
   <input id="txtMaxTemp" name="txtMaxTemp" placeholder="" class="form-control input-md" required="" type="text">
-    
-  </div>
-</div>
-
-<!-- Multiple Checkboxes -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="checkboxes">Options</label>
-  <div class="col-md-4">
-  <div class="checkbox">
-    <label for="checkboxes-0">
-      <input name="checkboxes" id="checkboxes-0" value="1" type="checkbox">
-      Over/Under Temp Alarm (check for Enabled)
-    </label>
-	</div>
-  <div class="checkbox">
-    <label for="checkboxes-1">
-      <input name="checkboxes" id="checkboxes-1" value="2" type="checkbox">
-      Active (check for Yes)
-    </label>
-	</div>
   </div>
 </div>
 
@@ -174,8 +148,61 @@
 
 <script language="javascript" type="text/javascript">
    	$( document ).ready(function() {
-   		//initTanks();
+   		GetTankList();
 	});
+    
+    $("form").submit(function(event) {
+        erpc("UpdateTank", {
+            Id:$("#ddlTanks :selected").text(),
+			Name:$("#txtTankName").val(),
+			ShortName:$("#txtTankShortName").val(),
+			Probe:$("#ddlProbe").prop("selectedIndex"),
+			TempFC:$('input[name=rbtnFC]:checked', '#ConfigTanks').val(),
+			SetTemp:$("#txtSetTemp").val(),
+			MinTemp:$("#txtMinTemp").val(),
+			MaxTemp:$("#txtMaxTemp").val()
+        });
+        event.preventDefault();
+        location.reload();
+	});
+    
+    $("#ddlTanks").on('change', function() {
+		erpc("GetTankInfo", {tank:this.value}, function (results) {
+            
+            $("#txtTankId").val(results.Id);
+            
+           	$("#txtTankName").val(results.Name);
+            
+            $("#txtTankShortName").val(results.ShortName);
+            
+            $("#ddlProbe").prop("selectedIndex", results.Probe);
+            
+            if(results.TempFC == "F") {
+                $("#rbtnFC-0").prop('checked', true);
+            }
+            else {
+                $("#rbtnFC-1").prop('checked', true);
+            }
+            
+            $("#txtSetTemp").val(results.SetTemp);
+            $("#txtMinTemp").val(results.MinTemp);
+            $("#txtMaxTemp").val(results.MaxTemp);
+            $("#txtTankName").val(results.Name);
+            
+        }); 
+	});
+    
+    function GetTankList() {
+         erpc("GetTankList", null, function (results) {
+           	var options = $("#ddlTanks");
+              $.each( results, function(key, val) {
+                options.append(new Option(val, val));
+              });
+        });   
+    }
+    
+
+
 </script>
 </body>
 </html>

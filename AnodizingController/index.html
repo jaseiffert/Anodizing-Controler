@@ -47,7 +47,7 @@
     <span class="error text-danger"></span> <span class="memory"></span> </div>
     <div class="row">
     <div class="col-sm-4">
-    <input type="button" class="btn btn-warning" id="HeaterOnOff" value="All Heaters Off">
+    <input type="button" class="btn btn-danger" id="HeaterOnOff" value="All Heaters Off">
     <br /><br />
     </div>
     </div>
@@ -61,7 +61,7 @@
         </div>
         <div class="panel-body">
           <div class="tempBox">
-            <div class="temp"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+              <div class="temp"><span class="tempText tankTemp">0</span><span class="tempText tankTempDeg">&deg; </span><span class="tempText tankTempFC"></span> <span class="tankTempUD"></span></div>
             <div class="max-min">Min / Max<br />
               <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
           </div>
@@ -76,7 +76,7 @@
         </div>
         <div class="panel-body">
           <div class="tempBox">
-            <div class="temp"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="temp"><span class="tempText tankTemp">0</span><span class="tempText tankTempDeg">&deg; </span><span class="tempText tankTempFC"></span> <span class="tankTempUD"></span></div>
             <div class="max-min">Min / Max<br />
               <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
           </div>
@@ -91,7 +91,7 @@
         </div>
         <div class="panel-body">
           <div class="tempBox">
-            <div class="temp"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="temp"><span class="tempText tankTemp">0</span><span class="tempText tankTempDeg">&deg; </span><span class="tempText tankTempFC"></span> <span class="tankTempUD"></span></div>
             <div class="max-min">Min / Max<br />
               <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
           </div>
@@ -110,7 +110,7 @@
         </div>
         <div class="panel-body">
           <div class="tempBox">
-            <div class="temp"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="temp"><span class="tempText tankTemp">0</span><span class="tempText tankTempDeg">&deg; </span><span class="tempText tankTempFC"></span> <span class="tankTempUD"></span></div>
             <div class="max-min">Min / Max<br />
               <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
           </div>
@@ -126,7 +126,7 @@
         </div>
         <div class="panel-body">
           <div class="tempBox">
-            <div class="temp"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="temp"><span class="tempText tankTemp">0</span><span class="tempText tankTempDeg">&deg; </span><span class="tempText tankTempFC"></span> <span class="tankTempUD"></span></div>
             <div class="max-min">Min / Max<br />
               <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
           </div>
@@ -142,7 +142,7 @@
         </div>
         <div class="panel-body">
           <div class="tempBox">
-            <div class="temp"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="temp"><span class="tempText tankTemp">0</span><span class="tempText tankTempDeg">&deg; </span><span class="tempText tankTempFC"></span> <span class="tankTempUD"></span></div>
             <div class="max-min">Min / Max<br />
               <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
           </div>
@@ -161,7 +161,7 @@
         </div>
         <div class="panel-body">
           <div class="tempBox">
-            <div class="temp"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="temp"><span class="tempText tankTemp">0</span><span class="tempText tankTempDeg">&deg;</span><span class="tempText tankTempFC"></span> <span class="tankTempUD"></span></div>
             <div class="max-min">Min / Max<br />
               <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
           </div>
@@ -177,7 +177,7 @@
         </div>
         <div class="panel-body">
           <div class="tempBox">
-            <div class="temp"><span class="tankTemp">0</span>&deg;<span class="tankTempFC"></span> <span class="tankTempUD"></span></div>
+            <div class="temp"><span class="tempText tankTemp">0</span><span class="tempText tankTempDeg">&deg;</span><span class="tempText tankTempFC"></span> <span class="tankTempUD"></span></div>
             <div class="max-min">Min / Max<br />
               <span class="tankMinTemp">0</span>&deg;<span class="tankTempFC"></span> / <span class="tankMaxTemp">0</span>&deg;<span class="tankTempFC"></span> </div>
           </div>
@@ -216,11 +216,16 @@
         $(".error").text = "ready";
    		loadTanks();
 
-        //$( ".timer" ).click({ value: this.id}, timerClick );
+        $( ".timer" ).click({ value: this.id}, timerClick );
         
         $( ".heater" ).click({ value: this.id}, heaterClick );
         $( "#HeaterOnOff" ).click(allHeaterClick);
-        //setTimeout(getTimer, 3000);
+        
+        getTimer();
+        
+        //getMemory();
+        
+        //setTimeout(getMemory, 5000);
 	});
     
 

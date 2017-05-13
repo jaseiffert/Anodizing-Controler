@@ -1,11 +1,16 @@
 // Required Libraries
-require(["GPIO", "UART", "string", "system"]);
+require(["GPIO", "UART", "string", "system", "Watchdog"]);
+
+// Create a watchdog that expires after 2 seconds
+watchdog <- Watchdog(15000);
 
 //Enable or Disable display of LCD
 local lcdEnable = false;
 // Enable or Disable Logging
 logPID <- false;
+logSYS <- false;
 
+dofile("sd:/Common/Utilities.nut");
 dofile("sd:/AnodizingController/HardwareConfig.nut");
 dofile("sd:/AnodizingController/TempProbe.nut");
 dofile("sd:/AnodizingController/Tanks.nut");
@@ -13,7 +18,7 @@ dofile("sd:/AnodizingController/PID_Library.nut");
 dofile("sd:/AnodizingController/TankTimers.nut");
 dofile("sd:/AnodizingController/LogFiles.nut");
 dofile("sd:/AnodizingController/HeaterControl.nut");
-dofile("sd:/Common/Utilities.nut");
+
 
 if(lcdEnable){
 	dofile("sd:/AnodizingController/LcdDisplay.nut");
@@ -56,6 +61,31 @@ function GetTanks()
     return tankList;
 }
 
+// Returns a list of tanks
+function GetTankList()
+{
+    return listOfTanks;
+}
+
+// Get tank information
+function GetTankInfo(params)
+{
+	return tankList[params.tank];
+}
+
+// Change Tank Information
+function UpdateTank(params)
+{
+    tankList[params.Id].Name = params.Name;
+    tankList[params.Id].ShortName = params.ShortName;
+    tankList[params.Id].SetTemp = params.SetTemp;
+    tankList[params.Id].MinTemp = params.MinTemp;
+    tankList[params.Id].MaxTemp = params.MaxTemp;
+    tankList[params.Id].TempFC = params.TempFC;
+    tankList[params.Id].Probe = params.Probe;
+    tankList[params.Id].HeaterEnabled = false;
+}
+
 // Changes the HeaterEnabled setting in the tankList
 function HeaterOnOff(params){
 	local heaterId = params.id;
@@ -72,6 +102,12 @@ function AllHeatersOff() {
             	tank.HeaterEnabled = false;
         }
     }
+}
+
+// Returns System memory usage
+function getMem()
+{
+    return mem();
 }
 
 //
@@ -101,13 +137,20 @@ if(lcdEnable){
 
 // Main Loop
 while (true){
-        
+    
     // Blink LED to show program is running
    if(ledAlertHigh.ishigh()){
        ledAlertHigh.low();
+       
+
    }
    else {
       	ledAlertHigh.high();
+       
+       // Log Esquilo Memory Usage
+       if(logSYS) {
+       		sysLogFile.writestr(DateTimeFormat() + " - Size: " + mem()["size"] + " - High: " + mem()["high"] + " - Used: " + mem()["used"] + "\r\n");
+       }
    }
    
     
@@ -144,5 +187,8 @@ while (true){
     }
     
     UpdateTempPID();
+    
+    // Refresh the watchdog
+    watchdog.refresh();
     
 } // while (true)

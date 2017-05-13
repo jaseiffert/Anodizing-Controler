@@ -54,6 +54,9 @@ function UpdateTempPID() {
         
         local t = date();
         local logEntry = "";
+        if(logPID) {
+			logEntry += "Time Stamp, Heater Id, Input, Output, Setpoint, now, windowStartTime, diff, Heater On/Off \r\n";
+        }
         
         // Get Temperature of tank
         tank.Temp = CtoF(probeList[tank.Probe].readT(), false);
@@ -62,7 +65,7 @@ function UpdateTempPID() {
         if(tank.HeaterId > -1) {
             if(tank.HeaterEnabled && tank.Temp > 0){
                 if(tank.Temp > tank.MaxTemp){
-                    logEntry += format("[%04d-%02d-%02d %02d:%02d:%02d] ", t.year, t.month, t.day, t.hour, t.min, t.sec);
+                    logEntry += LogDateTimeFormat();
                 	logEntry += tank.Id + ", " + tank.Temp + " degrees, " + tank.HeaterId;
     				heaterList[tank.HeaterId].low();
                     logEntry += ", Turned OFF OverTemp \r\n";
@@ -71,9 +74,7 @@ function UpdateTempPID() {
                 
                 if(windowStartTime < 1) {
                     windowStartTime <- millis();
-                    if(logPID) {
-						logEntry += "Time Stamp, Heater Id, Input, Output, Setpoint, now, windowStartTime, diff, Heater On/Off \r\n";
-                    }
+                    
                 }
             	pidHeaterList[tank.HeaterId].Input = tank.Temp;
                 pidHeaterList[tank.HeaterId].Compute();
@@ -82,7 +83,7 @@ function UpdateTempPID() {
                 local diff = now - windowStartTime;
                 
                 if(logPID) {
-					logEntry += format("[%04d-%02d-%02d %02d:%02d:%02d] ", t.year, t.month, t.day, t.hour, t.min, t.sec);
+					logEntry += LogDateTimeFormat();
                 	logEntry += tank.HeaterId + ", " + pidHeaterList[tank.HeaterId].Input + " - " + pidHeaterList[tank.HeaterId].Output + ", " + pidHeaterList[tank.HeaterId].Setpoint + ", " + (pidHeaterList[tank.HeaterId].Setpoint - pidHeaterList[tank.HeaterId].Input).tostring() + ", " + now + ", " + windowStartTime + ", " + diff;
                     
                 }
@@ -94,17 +95,21 @@ function UpdateTempPID() {
                 
                 if(pidHeaterList[tank.HeaterId].Output > now - windowStartTime){ 
                     heaterList[tank.HeaterId].high();
-                    logEntry += ", ON \r\n";
+                    if(logPID) {
+                        logEntry += ", ON \r\n";
+                    }
                 }
                 else {
                     heaterList[tank.HeaterId].low();
-                    logEntry += ", OFF \r\n";
+                    if(logPID) {
+                        logEntry += ", OFF \r\n";
+                    }
                 }
                 }
              } // (tank.HeaterEnabled)
             else {
                 if(!tank.HeaterEnabled){
-					logEntry += format("[%04d-%02d-%02d %02d:%02d:%02d] ", t.year, t.month, t.day, t.hour, t.min, t.sec);
+					logEntry += LogDateTimeFormat();
                 	logEntry += tank.Id + ", " + tank.Temp + " degrees, " + tank.HeaterId;
     				heaterList[tank.HeaterId].low();
                     logEntry += ", Turned OFF \r\n";
@@ -113,7 +118,8 @@ function UpdateTempPID() {
             pidLogFile.writestr(logEntry);
         } // if(tank.HeaterId > -1)
     } // foreach (tank in tankList)
-	// Flush to the SD 
+
+    // Flush to the SD 
     pidLogFile.flush();
 } // function UpdateTempPID()
         
