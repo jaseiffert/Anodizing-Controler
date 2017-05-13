@@ -28,5 +28,33 @@ function Round(val, decimalPoints) {
    return newVal;
 }
 
+// Returns the Date and time
+function DateTimeFormat() {
+    local t = date();
+    return format("%02d-%02d-%04d %02d:%02d:%02d", (t.month + 1), t.day, t.year, t.hour, t.min, t.sec);
+}
 
+// Returns the Date
+function DateFormat() {
+    local t = date();
+    return format("%02d_%02d_%04d", (t.month + 1), t.day, t.year);
+}
+
+// Returns Date Time format for log
+function LogDateTimeFormat() {
+    local t = date();
+    return format("[%04d-%02d-%02d %02d:%02d:%02d] ", t.year, (t.month + 1), t.day, t.hour, t.min, t.sec);
+}
+
+// Returns the Date format for the log file
+function FileDateFormat() {
+    local t = date();
+    return format("%04d_%02d_%02d", t.year, (t.month + 1), t.day);
+}
+
+
+// Prints a line with Carriage Return
+function printLn(data) {
+	print(data + "\r\n");   
+}
 
